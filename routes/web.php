@@ -15,5 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::get('/', 'App\Http\Controllers\Controller@homepage');
-Route::get('/cadastro', 'App\Http\Controllers\Controller@cadastrar');
-Route::get('/logar', 'App\Http\Controllers\Controller@fazerlogin');
+Route::get('cadastro', 'App\Http\Controllers\Controller@cadastrar');
+
+
+/**
+ * Routes to user auth
+ * ==========================================
+ */
+Route::get('login', 'App\Http\Controllers\Controller@fazerlogin');
+Route::post('login', ['as' => 'user.login', 'uses' => 'App\Http\Controllers\DashboardController@auth']);
