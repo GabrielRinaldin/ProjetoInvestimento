@@ -22,8 +22,11 @@ class Controller extends BaseController
        return view('auth.register');
     }
 
+    /**
+     * Method to user login view
+     */
     public function fazerlogin()
     {
-       return view('auth.login');
+       return view('user.login');
     }
 }

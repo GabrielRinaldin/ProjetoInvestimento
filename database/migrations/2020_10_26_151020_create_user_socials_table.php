@@ -38,6 +38,8 @@ class CreateUserSocialsTable extends Migration
     {
         Schema::table('user_socials', function (Blueprint $table)
         {
+            $table->dropForeign('user_socials_user_id_foreign');
+            $table->dropForeign('user_socials_social_email_foreign');
 
         });
         Schema::dropIfExists('user_socials');

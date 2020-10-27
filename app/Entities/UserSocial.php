@@ -2,13 +2,12 @@
 
 namespace App\Entities;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
+
+class UserSocial extends Model
 {
     use HasFactory, SoftDeletes, Notifiable;
 
@@ -18,14 +17,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'cpf',
-        'nome',
-        'phone',
-        'birth',
-        'gender',
-        'notes',
-        'status',
-        'permission',
+        'user_id',
+        'social_network',
+        'social_id',
+        'social_email',
+        'social_avatar',
         
     ];
 
@@ -34,17 +30,12 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = [];
 
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-};
+    protected $casts = [];
+}

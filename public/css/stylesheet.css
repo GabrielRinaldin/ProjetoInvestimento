@@ -1,0 +1,86 @@
+*{
+    padding: 0;
+    margin:0;
+    list-style: 0;
+    outline: none;
+    border: none;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+div.background{
+    position: absolute;
+    left: 0;
+    width: calc(100% - 300px);
+    height: 100%;
+    background: url(../assets/images/login-background.jpg);
+    background-size: cover;
+}
+
+/**
+* stylesheet to login pages
+*/
+
+#conteudo-view{
+    position: absolute;
+    float: right;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background: #51dca6;
+    padding: 20px;
+    
+}
+
+#conteudo-view h1{
+    font: 3em 'Fredoka One', cursive;
+    color: #f3f3f3;
+    float: left;
+    width: 100%;
+    margin-top: 50px;
+
+}
+
+#conteudo-view h3, form p{
+    font: .8em 'Fredoka One', cursive;
+    color: #f3f3f3;
+    float: left;
+    width: 100%;
+}
+
+#conteudo-view form, form label{
+    float:left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#conteudo-view form{
+    margin-top: 40px;
+}
+
+#conteudo-view form p{
+    font-size: 1.25em;
+}
+#conteudo-view form label input, form input[type="submit"]{
+    float: left;
+    width: 100%;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 20px;
+    border: 2px solid #52ca9b;
+    color: #959595;
+    font: 1em 'Arial';
+}
+
+#conteudo-view form input[type="submit"]{
+    float: right;
+    width: 60%;
+    background: #00ff9c;
+    text-align: center;
+    font: 1em 'Fredoka One', cursive;
+    color: #f9f9f9;
+}
+
+
