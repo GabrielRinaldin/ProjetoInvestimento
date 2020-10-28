@@ -24,6 +24,8 @@ class User extends Authenticatable
         'birth',
         'gender',
         'notes',
+        'email',
+        'password',
         'status',
         'permission',
         
