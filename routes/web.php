@@ -16,4 +16,6 @@ Route::get('login', 'App\Http\Controllers\Controller@fazerlogin');
 Route::post('login', ['as' => 'user.login', 'uses' => 'App\Http\Controllers\DashboardController@auth']);
 Route::get('dashboard', ['as' => 'user.dashboard', 'uses' => 'App\Http\Controllers\DashboardController@index']);
 
+Route::get('user', ['as' => 'user.index', 'uses' => 'App\Http\Controllers\UsersController@index']);
 
+Route::resource('user', 'App\Http\Controllers\UsersController');
