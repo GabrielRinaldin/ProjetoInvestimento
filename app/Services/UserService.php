@@ -5,6 +5,9 @@ namespace App\Services;
 use App\Repositories\UserRepository;
 use App\Validators\UserValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
+use Illuminate\Database\QueryException;
+use Exception;
 
 
 class UserService
@@ -32,20 +35,15 @@ class UserService
                 'data' => $usuario,
             ];
         }
-        catch(\Exception $e)
+        catch(Exception $e)
         {
             switch(get_class($e))
             {
-                case QueryException::class : return $e->getMessage();
-                case ValidatorException::class : return $e->getMessageBag();
-                case Exception::class : return $e->getMessage();
-                default;
+                case QueryException::class      : return ['success' => false, 'messages' => $e->getMessage()];
+                case ValidatorException::class  : return ['success' => false, 'messages' => $e->getMessageBag()];
+                case Exception::class           : return ['success' => false, 'messages' => $e->getMessage()];
+                default                         : return ['success' => false, 'messages' => $e->getMessage()];
             }
-            return 
-            [
-            'success' => false,
-            'messages' =>$e->getMessageBag(),
-        ];
         }
     }
     
@@ -53,9 +51,29 @@ class UserService
     {
 
     }
-    public function delete()
+    public function destroy($user_id)
     {
+        try
+        {
+            $usuario = $this->repository->delete($user_id);
 
+            return 
+            [
+                'success' => true,
+                'messages' => "Usuário removido",
+                'data' => $usuario,
+            ];
+        }
+        catch(Exception $e)
+        {
+            switch(get_class($e))
+            {
+                case QueryException::class      : return ['success' => false, 'messages' => $e->getMessage()];
+                case ValidatorException::class  : return ['success' => false, 'messages' => $e->getMessageBag()];
+                case Exception::class           : return ['success' => false, 'messages' => $e->getMessage()];
+                default                         : return ['success' => false, 'messages' => $e->getMessage()];
+            }
+        }
     }
 
 }

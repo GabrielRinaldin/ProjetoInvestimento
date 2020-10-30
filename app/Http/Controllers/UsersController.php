@@ -43,8 +43,10 @@ class UsersController extends Controller
      */
     public function index()
     {
+        
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $users = $this->repository->all();
+        
 
         if (request()->wantsJson()) {
 
@@ -70,21 +72,13 @@ class UsersController extends Controller
        $request = $this->service->store($request->all());
        $usuario = $request['success'] ? $request['data'] : null;
 
-       dd($request);
-
-       session()->flush('success', 
+       session()->flash('success', 
        [
             'success'  => $request['success'],
-            'messages' => $request['success'],
+            'messages' => $request['messages'],
        ]);
-
-       if($request['success'])  
-           $usuario = $request['data'];
-       
-       else 
-       $usuario = null;
          
-       return view('user.index', ['usuario' => $usuario]);
+       return redirect()->route('user.index');
 
     }
 
@@ -176,16 +170,16 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $deleted = $this->repository->delete($id);
+        $request = $this->service->destroy($id);
+        
 
-        if (request()->wantsJson()) {
+       session()->flash('success', 
+       [
+            'success'  => $request['success'],
+            'messages' => $request['messages'],
+       ]);
+         
+       return redirect()->route('user.index');
 
-            return response()->json([
-                'message' => 'User deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
-
-        return redirect()->back()->with('message', 'User deleted.');
     }
 }
