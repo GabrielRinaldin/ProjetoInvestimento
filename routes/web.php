@@ -20,3 +20,4 @@ Route::get('user', ['as' => 'user.index', 'uses' => 'App\Http\Controllers\UsersC
 
 Route::resource('user', 'App\Http\Controllers\UsersController');
 Route::resource('instituition', 'App\Http\Controllers\InstituitionsController');
+Route::resource('group', 'App\Http\Controllers\GroupsController');

@@ -7,40 +7,47 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\InstituitionCreateRequest;
-use App\Http\Requests\InstituitionUpdateRequest;
+use App\Http\Requests\GroupCreateRequest;
+use App\Http\Requests\GroupUpdateRequest;
+use App\Repositories\GroupRepository;
 use App\Repositories\InstituitionRepository;
-use App\Validators\InstituitionValidator;
-use App\Services\InstituitionService;
+use App\Repositories\UserRepository;
+use App\Validators\GroupValidator;
+use App\Services\GroupService;
 
 /**
- * Class InstituitionsController.
+ * Class GroupsController.
  *
  * @package namespace App\Http\Controllers;
  */
-class InstituitionsController extends Controller
+class GroupsController extends Controller
 {
     /**
-     * @var InstituitionRepository
+     * @var GroupRepository
      */
     protected $repository;
 
     /**
-     * @var InstituitionValidator
+     * @var GroupValidator
      */
     protected $validator;
+    protected $service;
+    protected $instituitionRepository;
+    protected $userRepository;
 
     /**
-     * InstituitionsController constructor.
+     * GroupsController constructor.
      *
-     * @param InstituitionRepository $repository
-     * @param InstituitionValidator $validator
+     * @param GroupRepository $repository
+     * @param GroupValidator $validator
      */
-    public function __construct(InstituitionRepository $repository, InstituitionValidator $validator, InstituitionService $service)
+    public function __construct(GroupRepository $repository, GroupValidator $validator, GroupService $service, InstituitionRepository $instituitionRepository, UserRepository $userRepository)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
         $this->service  = $service;
+        $this->instituitionRepository  = $instituitionRepository;
+        $this->userRepository  = $userRepository;
     }
 
     /**
@@ -51,31 +58,37 @@ class InstituitionsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $instituitions = $this->repository->all();
+        $groups = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $instituitions,
+                'data' => $groups,
             ]);
         }
 
-        return view('instituitions.index', compact('instituitions'));
+        $user_list = $this->userRepository->selectBoxList();
+        $instituition_list = $this->instituitionRepository->selectBoxList();
+
+        return view('groups.index', compact('groups'), 
+        ['user_list' => $user_list,
+        'instituition_list' => $instituition_list,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  InstituitionCreateRequest $request
+     * @param  GroupCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(InstituitionCreateRequest $request)
+    public function store(GroupCreateRequest $request)
     {
         $request = $this->service->store($request->all());
-        $instituition = $request['success'] ? $request['data'] : null;
+        $group = $request['success'] ? $request['data'] : null;
  
         session()->flash('success', 
         [
@@ -83,8 +96,7 @@ class InstituitionsController extends Controller
              'messages' => $request['messages'],
         ]);
           
-        return redirect()->route('instituition.index');
- 
+        return redirect()->route('group.index');
     }
 
     /**
@@ -96,16 +108,7 @@ class InstituitionsController extends Controller
      */
     public function show($id)
     {
-        $instituition = $this->repository->find($id);
-
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $instituition,
-            ]);
-        }
-
-        return view('instituitions.show', compact('instituition'));
+        
     }
 
     /**
@@ -115,34 +118,28 @@ class InstituitionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $instituition = $this->repository->find($id);
-
-        return view('instituitions.edit', compact('instituition'));
-    }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  InstituitionUpdateRequest $request
+     * @param  GroupUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(InstituitionUpdateRequest $request, $id)
+    public function update(GroupUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $instituition = $this->repository->update($request->all(), $id);
+            $group = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Instituition updated.',
-                'data'    => $instituition->toArray(),
+                'message' => 'Group updated.',
+                'data'    => $group->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -176,6 +173,6 @@ class InstituitionsController extends Controller
     public function destroy($id)
     {
         $deleted = $this->repository->delete($id);
-        return redirect()->route('instituition.index');
+        return redirect()->route('group.index');
     }
 }
