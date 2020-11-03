@@ -19,4 +19,4 @@ Route::get('dashboard', ['as' => 'user.dashboard', 'uses' => 'App\Http\Controlle
 Route::get('user', ['as' => 'user.index', 'uses' => 'App\Http\Controllers\UsersController@index']);
 
 Route::resource('user', 'App\Http\Controllers\UsersController');
-
+Route::resource('instituition', 'App\Http\Controllers\InstituitionsController');
