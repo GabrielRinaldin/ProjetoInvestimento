@@ -2,24 +2,25 @@
 
 namespace App\Services;
 
-use App\Repositories\InstituitionRepository;
-use App\Validators\InstituitionValidator;
+use App\Repositories\GroupRepository;
+use App\Validators\GroupValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Illuminate\Database\QueryException;
 use Exception;
 
 
-class InstituitionService
+class GroupService
 {
-
     private $repository;
     private $validator;
 
-    public function __construct(InstituitionRepository $repository, InstituitionValidator $validator)
+    public function __construct(GroupRepository $repository, GroupValidator $validator)
     {
+
         $this->repository = $repository;
-        $this->validator  = $validator;
+        $this->validator = $validator;
+        
     }
 
     public function store($data)
@@ -27,16 +28,19 @@ class InstituitionService
         try
         {
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
-            $instituition = $this->repository->create($data);
+            $group = $this->repository->create($data);
+            
             return 
             [
                 'success' => true,
-                'messages' => "Instituição cadastrada",
-                'data' => $instituition,
+                'messages' => "Grupo cadastrado",
+                'data' => $group,
             ];
+            
         }
         catch(Exception $e)
-        {
+        {   
+            dd($e);
             switch(get_class($e))
             {
                 case QueryException::class      : return ['success' => false, 'messages' => $e->getMessage()];
@@ -44,20 +48,6 @@ class InstituitionService
                 case Exception::class           : return ['success' => false, 'messages' => $e->getMessage()];
                 default                         : return ['success' => false, 'messages' => $e->getMessage()];
             }
-        }
-    }
-    public function update()
-    {
-
-    }
-    public function destroy()
-    {
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'message' => 'Instituition deleted.',
-                'deleted' => $deleted,
-            ]);
         }
     }
 }

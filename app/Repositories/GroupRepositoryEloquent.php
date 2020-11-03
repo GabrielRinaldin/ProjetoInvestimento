@@ -4,24 +4,17 @@ namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\InstituitionRepository;
-use App\Entities\Instituition;
-use App\Validators\InstituitionValidator;
+use App\Repositories\GroupRepository;
+use App\Entities\Group;
+use App\Validators\GroupValidator;
 
 /**
- * Class InstituitionRepositoryEloquent.
+ * Class GroupRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class InstituitionRepositoryEloquent extends BaseRepository implements InstituitionRepository
+class GroupRepositoryEloquent extends BaseRepository implements GroupRepository
 {
-
-    public function selectBoxList(string $descricao = 'name', string $chave = 'id')
-    {
-        return $this->model->pluck($descricao, $chave)->all();
-    }
-
-
     /**
      * Specify Model class name
      *
@@ -29,7 +22,7 @@ class InstituitionRepositoryEloquent extends BaseRepository implements Instituit
      */
     public function model()
     {
-        return Instituition::class;
+        return Group::class;
     }
 
     /**
@@ -40,7 +33,7 @@ class InstituitionRepositoryEloquent extends BaseRepository implements Instituit
     public function validator()
     {
 
-        return InstituitionValidator::class;
+        return GroupValidator::class;
     }
 
 
