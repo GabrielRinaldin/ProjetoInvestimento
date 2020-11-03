@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Entities\User;
+use App\Entities\Instituition;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,5 +27,8 @@ class DatabaseSeeder extends Seeder
         'password'      => env('PASSWORD_HASH') ? bcrypt('123456') : '123456',
 
         ]);
+        Instituition::create([
+            'name' => 'HQS' ,
+            ]);
     }
 };
