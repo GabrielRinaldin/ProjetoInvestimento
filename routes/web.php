@@ -21,3 +21,5 @@ Route::get('user', ['as' => 'user.index', 'uses' => 'App\Http\Controllers\UsersC
 Route::resource('user', 'App\Http\Controllers\UsersController');
 Route::resource('instituition', 'App\Http\Controllers\InstituitionsController');
 Route::resource('group', 'App\Http\Controllers\GroupsController');
+
+Route::post('group/{group_id}/user', ['as' => 'group.user.store', 'uses' => 'App\Http\Controllers\GroupsController@userStore' ]);
