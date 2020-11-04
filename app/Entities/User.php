@@ -50,24 +50,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function groups()
+    {
+           return $this->belongsToMany(User::class, 'user_groups');
+    }
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = env('PASSWORD_HASH') ? bcrypt($value) : $value ;
     }
 
-    public function getCpfAttribute()
+    public function getFormattedCpfAttribute()
     {   
         $cpf = $this->attributes['cpf'];
         return \substr($cpf, 0, 3) .'.'. \substr($cpf, 3, 3) .'.'. \substr($cpf, 7, 3) . '-' .\substr($cpf, -2);
     }
 
-    public function getPhoneAttribute()
+    public function getFormattedPhoneAttribute()
     {   
         $phone = $this->attributes['phone'];
         return  '('. \substr($phone, 0, 2) .') '. \substr($phone, 2, 5) .'-'. \substr($phone, -4);
     }
 
-    public function getBirthAttribute(){
+    public function getFormattedBirthAttribute(){
 
         $birth = explode('-', $this->attributes['birth']);
         if(count($birth) != 3)
