@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::get('/', 'App\Http\Controllers\Controller@fazerlogin');
 Route::get('cadastro', 'App\Http\Controllers\Controller@cadastrar');
+Route::get('dashboard', 'App\Http\Controllers\Controller@index');
 
 /**
  * Routes to user auth

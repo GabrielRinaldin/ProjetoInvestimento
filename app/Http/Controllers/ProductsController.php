@@ -49,8 +49,8 @@ class ProductsController extends Controller
      */
     public function index($instituition_id)
     {
-        $products = $this->repository->all();
         $instituition = Instituition::find($instituition_id);
+
         return view('instituitions.product.index', compact('instituition'));
     }
 
@@ -64,12 +64,12 @@ class ProductsController extends Controller
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function store(Request $request, $instituition_id)
-    {   
+    {       
+
         try 
         {
             $data = $request->all();
             $data['instituition_id'] = $instituition_id;
-            dd($data);
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
             $product = $this->repository->create($data);
 
@@ -176,18 +176,14 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($instituition_id, $product_id)
     {
-        $deleted = $this->repository->delete($id);
-
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'message' => 'Product deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
-
-        return redirect()->back()->with('message', 'Product deleted.');
+        $deleted = $this->repository->delete($product_id);
+        session()->flash('success', 
+        [
+             'success'  => true,
+             'messages' => "Produto removido",
+        ]);
+        return redirect()->back();
     }
 }
