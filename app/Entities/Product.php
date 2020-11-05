@@ -7,11 +7,11 @@ use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
 /**
- * Class Instituition.
+ * Class Product.
  *
  * @package namespace App\Entities;
  */
-class Instituition extends Model implements Transformable
+class Product extends Model implements Transformable
 {
     use TransformableTrait;
 
@@ -20,16 +20,11 @@ class Instituition extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = ['name'];
-    public $timestamps = true;
+    protected $fillable = ['instituition_id','name','description','index','interest_rate'];
 
-    public function groups()
-    {
-        return $this->hasMany(Group::class);
-    }
 
-    public function products()
+    public function instituition()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(Instituition::class);
     }
 }
