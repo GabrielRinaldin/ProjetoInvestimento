@@ -3,6 +3,12 @@
     <ul>
 
         <li>
+            <a href="{{ route('user.dashboard') }}">
+                <i class="fa fa-home"></i>
+                <h3>Início</h3>
+            </a>
+        </li>
+        <li>
             <a href="{{ route('user.index') }}">
                 <i class="fa fa-address-book"></i>
                 <h3>Usuários</h3>
