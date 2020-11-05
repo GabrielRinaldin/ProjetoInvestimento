@@ -2,13 +2,6 @@
 
 @section('conteudo-view')
 
-
-<header>
-    <label>{{$group->name}}</label>
-    <label>{{$group->instituition->name}}</label>
-    <label>{{$group->owner->nome}}</label>
-</header>
-
 {!! Form::open(['route'=> ['group.user.store', $group->id],'method' => 'post', 'class' => 'form-padrao'])!!}
 @include('templates.formulario.select', ['label' =>'User', 'select' => 'user_id', 'data' => $user_list, 'attributes' => ['placeholder' => ' User']])
 

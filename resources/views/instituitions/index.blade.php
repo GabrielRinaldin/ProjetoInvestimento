@@ -35,6 +35,8 @@
                 {!! Form::submit('Remover')!!}
                 {!! Form::close()!!}
                 <a href="{{route ('instituition.show', $instituition->id) }}">Detalhes</a>
+                <a href="{{route ('instituition.edit', $instituition->id) }}">Editar</a>
+                <a href="{{route ('instituition.product.index', $instituition->id) }}">Produtos</a>
             </td>
 
         </tr>

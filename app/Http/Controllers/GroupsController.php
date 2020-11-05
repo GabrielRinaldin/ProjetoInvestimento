@@ -14,6 +14,7 @@ use App\Repositories\InstituitionRepository;
 use App\Repositories\UserRepository;
 use App\Validators\GroupValidator;
 use App\Services\GroupService;
+use App\Entities\Group;
 
 /**
  * Class GroupsController.
@@ -128,6 +129,18 @@ class GroupsController extends Controller
             ['user_list' => $user_list]);
     }
 
+
+    public function edit($id)
+    {
+        $group = Group::find($id);
+        $user_list = $this->userRepository->selectBoxList();
+        $instituition_list = $this->instituitionRepository->selectBoxList();
+
+        return view('groups.edit', compact('group'),
+        ['user_list' => $user_list,
+        'instituition_list' => $instituition_list]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -146,37 +159,17 @@ class GroupsController extends Controller
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(GroupUpdateRequest $request, $id)
+    public function update(Request $request, $group_id)
     {
-        try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
-            $group = $this->repository->update($request->all(), $id);
-
-            $response = [
-                'message' => 'Group updated.',
-                'data'    => $group->toArray(),
-            ];
-
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+        $request = $this->service->update((int)$group_id, $request->all());
+ 
+        session()->flash('success', 
+        [
+             'success'  => $request['success'],
+             'messages' => $request['messages'],
+        ]);
+          
+        return redirect()->route('group.index');
     }
 
 

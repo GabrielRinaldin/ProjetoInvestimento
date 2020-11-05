@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         User::create([
-        'cpf'           => '12345678913',
+        'cpf'           => '00000000000',
         'nome'          => 'Gabriel',
         'phone'         => '96101169',
         'birth'         => '1999-08-02',
         'gender'        => 'M',
-        'email'         => 'gabrielrinaldin@sistema.com.br',
+        'email'         => 'gabriel@sistema.com.br',
         'password'      => env('PASSWORD_HASH') ? bcrypt('123456') : '123456',
 
         ]);
