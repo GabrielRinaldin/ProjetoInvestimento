@@ -23,7 +23,7 @@ class GroupService
         
     }
 
-    public function store($data)
+    public function store(array $data)
     {
         try
         {
@@ -50,7 +50,7 @@ class GroupService
         }
     }
 
-    public function userStore($group_id, $data)
+    public function userStore($group_id, array $data)
     {
         try
         {

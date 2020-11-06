@@ -44,7 +44,7 @@ class DashboardController extends Controller
         {
             if(env('PASSWORD_HASH'))
             {
-                \Auth::attempt($data, false);
+                Auth::attempt($data, false);
             }
             else
             {
@@ -68,7 +68,6 @@ class DashboardController extends Controller
             return $e->getMessage();
 
         }
-        dd($request->all());
-        echo"teste";
+       
     }
 }

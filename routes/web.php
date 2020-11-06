@@ -3,28 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
   
-Auth::routes();
-Route::get('/', 'App\Http\Controllers\Controller@fazerlogin');
-Route::get('cadastro', 'App\Http\Controllers\Controller@cadastrar');
-Route::get('dashboard', 'App\Http\Controllers\Controller@index');
-
-/**
- * Routes to user auth
- * ==========================================
- */
-
-Route::get('login', 'App\Http\Controllers\Controller@fazerlogin');
-Route::post('login', ['as' => 'user.login', 'uses' => 'App\Http\Controllers\DashboardController@auth']);
-Route::get('dashboard', ['as' => 'user.dashboard', 'uses' => 'App\Http\Controllers\DashboardController@index']);
-
-Route::get('user', ['as' => 'user.index', 'uses' => 'App\Http\Controllers\UsersController@index']);
-
-Route::resource('user', 'App\Http\Controllers\UsersController');
-Route::resource('instituition', 'App\Http\Controllers\InstituitionsController');
-Route::resource('group', 'App\Http\Controllers\GroupsController');
-Route::resource('instituition.product', 'App\Http\Controllers\ProductsController');
-
-
 /***
  * ======================================================
 resource simplifica todos os metodos de rotas para a controller
@@ -41,4 +19,36 @@ Route::delete('group/{id}', 'GroupsController@delete) deletar dados
 =========================================================
 */
 
+Auth::routes();
+
+/**
+ * Methods Get
+ * ====================================================== * 
+ */
+
+Route::get('/', 'App\Http\Controllers\Controller@fazerlogin');
+Route::get('cadastro', 'App\Http\Controllers\Controller@cadastrar');
+Route::get('dashboard', 'App\Http\Controllers\Controller@index');
+Route::get('login', 'App\Http\Controllers\Controller@fazerlogin');
+Route::post('login', ['as' => 'user.login', 'uses' => 'App\Http\Controllers\DashboardController@auth']);
+Route::get('dashboard', ['as' => 'user.dashboard', 'uses' => 'App\Http\Controllers\DashboardController@index']);
+Route::get('user', ['as' => 'user.index', 'uses' => 'App\Http\Controllers\UsersController@index']);
+Route::get('moviment', ['as' => 'moviment.application', 'uses' => 'App\Http\Controllers\MovimentsController@application']);
+
+/**
+ * Methods Resoucer
+ * ======================================================
+ */
+
+Route::resource('user', 'App\Http\Controllers\UsersController');
+Route::resource('instituition', 'App\Http\Controllers\InstituitionsController');
+Route::resource('group', 'App\Http\Controllers\GroupsController');
+Route::resource('instituition.product', 'App\Http\Controllers\ProductsController');
+
+/**
+ * Methods Post
+ * ======================================================
+ */
+
 Route::post('group/{group_id}/user', ['as' => 'group.user.store', 'uses' => 'App\Http\Controllers\GroupsController@userStore' ]);
+Route::post('moviment', ['as' => 'moviment.application.store', 'uses' => 'App\Http\Controllers\MovimentsController@storeApplication']);

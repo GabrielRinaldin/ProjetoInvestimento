@@ -22,7 +22,7 @@ class InstituitionService
         $this->validator  = $validator;
     }
 
-    public function store($data)
+    public function store(array $data)
     {
         try
         {
