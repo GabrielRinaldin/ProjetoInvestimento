@@ -17,6 +17,9 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+    protected $table = 'users';
+    
     protected $fillable = [
         'cpf',
         'nome',
@@ -30,6 +33,7 @@ class User extends Authenticatable
         'permission',
         
     ];
+
 
     /**
      * The attributes that should be hidden for arrays.

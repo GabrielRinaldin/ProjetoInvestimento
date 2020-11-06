@@ -12,6 +12,8 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Repositories\UserRepository;
 use App\Validators\UserValidator;
 use App\Services\UserService;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 
 /**
  * Class UsersController.
