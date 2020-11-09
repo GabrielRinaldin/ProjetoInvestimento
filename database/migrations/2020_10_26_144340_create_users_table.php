@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
 			
 			//dados para user
 			$table->char('cpf', 11)->unique()->nullable();
-			$table->string('nome', 50);
+			$table->string('name', 50);
 			$table->char('phone',11);
 			$table->date('birth')->nullable();
 			$table->char('gender', 1)->nullable();

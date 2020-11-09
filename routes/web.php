@@ -19,36 +19,28 @@ Route::delete('group/{id}', 'GroupsController@delete) deletar dados
 =========================================================
 */
 
-Auth::routes();
 
-/**
- * Methods Get
- * ====================================================== * 
- */
 
-Route::get('/', 'App\Http\Controllers\Controller@fazerlogin');
+Route::get('/', ['uses' => 'App\Http\Controllers\Controller@homepage']);
 Route::get('cadastro', 'App\Http\Controllers\Controller@cadastrar');
-Route::get('dashboard', 'App\Http\Controllers\Controller@index');
-Route::get('login', 'App\Http\Controllers\Controller@fazerlogin');
-Route::post('login', ['as' => 'user.login', 'uses' => 'App\Http\Controllers\DashboardController@auth']);
-Route::get('dashboard', ['as' => 'user.dashboard', 'uses' => 'App\Http\Controllers\DashboardController@index']);
-Route::get('user', ['as' => 'user.index', 'uses' => 'App\Http\Controllers\UsersController@index']);
-Route::get('moviment', ['as' => 'moviment.application', 'uses' => 'App\Http\Controllers\MovimentsController@application']);
+
 
 /**
- * Methods Resoucer
- * ======================================================
- */
+ * Routes to user auth
+ * ==================================
+ */    
+ Auth::routes();
+Route::get('/login', 'App\Http\Controllers\Controller@fazerlogin');
+Route::post('/logar', ['as' => 'user.login', 'uses' => 'App\Http\Controllers\DashboardController@auth']);
+Route::get('/dashboard', ['as' => 'user.dashboard', 'uses' => 'App\Http\Controllers\DashboardController@index']);
 
+Route::get('user', ['as' => 'user.index', 'uses' => 'App\Http\Controllers\UsersController@index']);
 Route::resource('user', 'App\Http\Controllers\UsersController');
 Route::resource('instituition', 'App\Http\Controllers\InstituitionsController');
 Route::resource('group', 'App\Http\Controllers\GroupsController');
 Route::resource('instituition.product', 'App\Http\Controllers\ProductsController');
 
-/**
- * Methods Post
- * ======================================================
- */
+Route::get('moviment', ['as' => 'moviment.application', 'uses' => 'App\Http\Controllers\MovimentsController@application']);
+Route::post('moviment', ['as' => 'moviment.application.store', 'uses' => 'App\Http\Controllers\MovimentsController@storeApplication']);
 
 Route::post('group/{group_id}/user', ['as' => 'group.user.store', 'uses' => 'App\Http\Controllers\GroupsController@userStore' ]);
-Route::post('moviment', ['as' => 'moviment.application.store', 'uses' => 'App\Http\Controllers\MovimentsController@storeApplication']);
