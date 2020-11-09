@@ -17,7 +17,7 @@ class DashboardController extends Controller
     public function __construct(UserRepository $repository, UserValidator $validator)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;
+        $this->validator  = $validator; 
     }
 
 
@@ -34,6 +34,7 @@ class DashboardController extends Controller
 
 
     public function auth(Request $request){
+
         
         $data = [
             'email' => $request->get('username'),
@@ -44,7 +45,7 @@ class DashboardController extends Controller
         {
             if(env('PASSWORD_HASH'))
             {
-                Auth::attempt($data, false);
+                Auth::attempt($data, true);
             }
             else
             {
@@ -56,7 +57,7 @@ class DashboardController extends Controller
                 }
                 if($user->password != $request->get('password'))
                 {
-                    throw new Exception("Senha inválido");
+                    throw new Exception("Senha inválida");
                     Auth::login($user);
                 }
             }

@@ -47,7 +47,7 @@ class UserService
         }
     }
     
-    public function update($data, $id)
+    public function update(array $data, $id)
     {
         try
         {

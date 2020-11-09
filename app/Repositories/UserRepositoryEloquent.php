@@ -16,7 +16,7 @@ use App\Validators\UserValidator;
 class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
 
-    public function selectBoxList(string $descricao = 'nome',string $chave = 'id')
+    public function selectBoxList(string $descricao = 'name',string $chave = 'id')
     {
         return $this->model->pluck($descricao, $chave)->all();
     }

@@ -22,7 +22,7 @@ class User extends Authenticatable
     
     protected $fillable = [
         'cpf',
-        'nome',
+        'name',
         'phone',
         'birth',
         'gender',
@@ -56,7 +56,7 @@ class User extends Authenticatable
 
     public function groups()
     {
-           return $this->belongsToMany(User::class, 'user_groups');
+           return $this->belongsToMany(Group::class, 'user_groups');
     }
 
     public function setPasswordAttribute($value)
