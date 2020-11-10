@@ -32,9 +32,21 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('moviment.getback') }}">
+                <i class="fa fa-handshake-o"></i>
+                <h3>Resgatar</h3>
+            </a>
+        </li>
+        <li>
             <a href="{{ route('moviment.index') }}">
                 <i class="fa fa-dollar"></i>
                 <h3>Aplicações</h3>
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('moviment.all') }}">
+                <i class="fa fa-bank "></i>
+                <h3>Extrato</h3>
             </a>
         </li>
 
