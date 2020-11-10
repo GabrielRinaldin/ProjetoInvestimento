@@ -19,7 +19,7 @@
         <tr>
             <td>{{$user->id}}</td>
             <td>{{$user->formatted_cpf}}</td>
-            <td>{{$user->nome}}</td>
+            <td>{{$user->name}}</td>
             <td>{{$user->formatted_phone}}</td>
             <td>{{$user->formatted_birth}}</td>
             <td>{{$user->email}}</td>
