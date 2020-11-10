@@ -45,10 +45,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $users = $this->repository->all();
-        
 
         if (request()->wantsJson()) {
 
@@ -132,7 +129,7 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         
-        $request = $this->service->update($request->all(),$id);
+        $request = $this->service->update($request->all(), $id);
         $usuario = $request['success'] ? $request['data'] : null;
  
         session()->flash('success', 

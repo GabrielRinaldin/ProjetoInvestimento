@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
 use App\Validators\UserValidator;
 use Exception;
+use Auth;
 
 
 
@@ -23,19 +24,13 @@ class DashboardController extends Controller
 
 
     public function index(){
-        $users = $this->repository->all();
-
-        return view('user.dashboard',
-    [
-        'users' => $users
-    ]);
+        return view('user.dashboard');
     }
 
 
 
-    public function auth(Request $request){
-
-        
+    public function auth(Request $request)
+    {
         $data = [
             'email' => $request->get('username'),
             'password' => $request->get('password'),
@@ -45,21 +40,22 @@ class DashboardController extends Controller
         {
             if(env('PASSWORD_HASH'))
             {
-                Auth::attempt($data, true);
+                Auth::attempt($data, false);
             }
             else
             {
                 $user = $this->repository->findWhere(['email' => $request->get('username')])->first();
     
                 if(!$user)
-                {
+                
                     throw new Exception("E-mail inválido");
-                }
+                
                 if($user->password != $request->get('password'))
-                {
+                
                     throw new Exception("Senha inválida");
+                    
                     Auth::login($user);
-                }
+                
             }
             return \redirect()->route('user.dashboard');
         }
