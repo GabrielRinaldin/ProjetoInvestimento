@@ -23,6 +23,14 @@ class Group extends Model implements Transformable
      * @var array
      */
     protected $fillable = ['name', 'user_id', 'instituition_id'];
+    
+    public function getTotalValueAttribute()
+    {   
+        return $this->moviments->sum('value');
+    }
+    
+    public $timestamps = true;
+
 
     public function owner()
     {
@@ -38,7 +46,10 @@ class Group extends Model implements Transformable
     {
            return $this->belongsToMany(User::class, 'user_groups');
     }
-    public $timestamps = true;
 
+    public function moviments()
+    {
+        return $this->hasMany(Moviment::class);
+    }
 
 }
