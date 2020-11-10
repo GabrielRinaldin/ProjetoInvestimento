@@ -5,6 +5,7 @@
 
             <td>ID</td>
             <td>Grupo</td>
+            <td>Amont Total</td>
             <td>Instituição</td>
             <td>Responsável</td>
             <td>Ação</td>
@@ -17,6 +18,7 @@
 
             <td>{{$group->id}}</td>
             <td>{{$group->name}}</td>
+            <td>{{number_format($group->total_value, 2, '.' ,',')}}</td>
             <td>{{$group->instituition->name}}</td>
             <td>{{$group->owner->nome}}</td>
             <td>

@@ -29,12 +29,25 @@ class Moviment extends Model implements Transformable
     public function group()
     {
         return $this->belongsTo(Group::class);
-
     }
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
 
+    public function scopeProduct($query, $product)
+    {
+        return $query->where('product_id', $product->id);
+    }
+
+    public function scopeApplications($query)
+    {
+        return $query->where('type', 1);
+    }
+    
+    public function scopeOutflows($query)
+    {
+        return $query->where('type', 2);
     }
 
 }
