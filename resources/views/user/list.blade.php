@@ -21,9 +21,8 @@
             <td>{{$user->formatted_cpf}}</td>
             <td>{{$user->name}}</td>
             <td>{{$user->formatted_phone}}</td>
-            <td>{{$user->formatted_birth}}</td>
             <td>{{$user->email}}</td>
-            <td>{{$user->status}}</td>
+            <td>{{$user->user_type}}</td>
             <td>{{$user->permission}}</td>
             <td>
             {!! Form::open(['route' => ['user.destroy', $user->id], 'method' => 'DELETE'])!!}

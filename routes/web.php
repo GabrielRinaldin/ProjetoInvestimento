@@ -32,3 +32,11 @@ Route::resource('group', 'App\Http\Controllers\GroupsController');
 Route::resource('instituition.product', 'App\Http\Controllers\ProductsController');
 
 Route::post('group/{group_id}/user', ['as' => 'group.user.store', 'uses' => 'App\Http\Controllers\GroupsController@userStore' ]);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

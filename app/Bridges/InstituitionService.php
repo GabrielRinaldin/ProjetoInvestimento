@@ -1,24 +1,25 @@
 <?php
 
-namespace App\Services;
+namespace App\Bridges;
 
-use App\Repositories\UserRepository;
-use App\Validators\UserValidator;
+use App\Repositories\InstituitionRepository;
+use App\Validators\InstituitionValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Illuminate\Database\QueryException;
 use Exception;
 
 
-class UserService
-{   
+class InstituitionService
+{
+
     private $repository;
     private $validator;
 
-    public function __construct(UserRepository $repository, UserValidator $validator)
+    public function __construct(InstituitionRepository $repository, InstituitionValidator $validator)
     {
         $this->repository = $repository;
-        $this->validator = $validator;
+        $this->validator  = $validator;
     }
 
     public function store(array $data)
@@ -26,13 +27,12 @@ class UserService
         try
         {
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
-            $usuario = $this->repository->create($data);
-
+            $instituition = $this->repository->create($data);
             return 
             [
                 'success' => true,
-                'messages' => "Usuário cadastrado",
-                'data' => $usuario,
+                'messages' => "Instituição cadastrada",
+                'data' => $instituition,
             ];
         }
         catch(Exception $e)
@@ -46,19 +46,17 @@ class UserService
             }
         }
     }
-    
-    public function update(array $data, $id)
+    public function update($data, $id)
     {
         try
         {
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
-            $usuario = $this->repository->update($data, $id);
-
+            $instituition = $this->repository->update($data, $id);
             return 
             [
                 'success' => true,
-                'messages' => "Usuário atualizado",
-                'data' => $usuario,
+                'messages' => "Instituição atualizada",
+                'data' => $instituition,
             ];
         }
         catch(Exception $e)
@@ -72,29 +70,14 @@ class UserService
             }
         }
     }
-    public function destroy($user_id)
+    public function destroy()
     {
-        try
-        {
-            $usuario = $this->repository->delete($user_id);
+        if (request()->wantsJson()) {
 
-            return 
-            [
-                'success' => true,
-                'messages' => "Usuário removido",
-                'data' => $usuario,
-            ];
-        }
-        catch(Exception $e)
-        {
-            switch(get_class($e))
-            {
-                case QueryException::class      : return ['success' => false, 'messages' => $e->getMessage()];
-                case ValidatorException::class  : return ['success' => false, 'messages' => $e->getMessageBag()];
-                case Exception::class           : return ['success' => false, 'messages' => $e->getMessage()];
-                default                         : return ['success' => false, 'messages' => $e->getMessage()];
-            }
+            return response()->json([
+                'message' => 'Instituition deleted.',
+                'deleted' => $deleted,
+            ]);
         }
     }
-
 }

@@ -13,40 +13,17 @@ use App\Repositories\ProductRepository;
 use App\Validators\ProductValidator;
 use App\Entities\Instituition;
 
-/**
- * Class ProductsController.
- *
- * @package namespace App\Http\Controllers;
- */
+
 class ProductsController extends Controller
 {
-    /**
-     * @var ProductRepository
-     */
-    protected $repository;
 
-    /**
-     * @var ProductValidator
-     */
-    protected $validator;
-
-    /**
-     * ProductsController constructor.
-     *
-     * @param ProductRepository $repository
-     * @param ProductValidator $validator
-     */
+ 
     public function __construct(ProductRepository $repository, ProductValidator $validator)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index($instituition_id)
     {
         $instituition = Instituition::find($instituition_id);
@@ -54,15 +31,6 @@ class ProductsController extends Controller
         return view('instituitions.product.index', compact('instituition'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  ProductCreateRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
     public function store(Request $request, $instituition_id)
     {       
 
@@ -90,13 +58,7 @@ class ProductsController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
+  
     public function show($id)
     {
         $product = $this->repository->find($id);
@@ -111,13 +73,6 @@ class ProductsController extends Controller
         return view('products.show', compact('product'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $product = $this->repository->find($id);
@@ -125,16 +80,7 @@ class ProductsController extends Controller
         return view('products.edit', compact('product'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  ProductUpdateRequest $request
-     * @param  string            $id
-     *
-     * @return Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
+   
     public function update(ProductUpdateRequest $request, $id)
     {
         try {
@@ -169,13 +115,6 @@ class ProductsController extends Controller
     }
 
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($instituition_id, $product_id)
     {
         $deleted = $this->repository->delete($product_id);

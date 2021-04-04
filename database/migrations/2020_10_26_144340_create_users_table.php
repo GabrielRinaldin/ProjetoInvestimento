@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
 			//dados para user
 			$table->char('cpf', 11)->unique()->nullable();
 			$table->string('name', 50);
-			$table->char('phone',11);
+			$table->char('phone',11)->nullable();
 			$table->date('birth')->nullable();
 			$table->char('gender', 1)->nullable();
 			$table->text('notes')->nullable();
@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
 			$table->string('password', 254)->nullable();
 
 			//Campos de permissão
-			$table->string('status')->default('active');
+			$table->enum('user_type', ['client','admin'])->default('client');
 			$table->string('permission')->default('app.user');
 
 			$table->rememberToken();

@@ -18,12 +18,6 @@ class Controller extends BaseController
         return view ('welcome', ['title' => $variavel]);
     }
 
-    public function cadastrar()
-    {
-       //return view('auth.register');
-       echo "Cadastrar";
-    }
-
     /**
      * Method to user login view
      */

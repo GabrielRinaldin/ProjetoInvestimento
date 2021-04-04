@@ -1,25 +1,26 @@
 <?php
 
-namespace App\Services;
+namespace App\Bridges;
 
-use App\Repositories\InstituitionRepository;
-use App\Validators\InstituitionValidator;
+use App\Repositories\GroupRepository;
+use App\Validators\GroupValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Illuminate\Database\QueryException;
 use Exception;
 
 
-class InstituitionService
+class GroupService
 {
-
     private $repository;
     private $validator;
 
-    public function __construct(InstituitionRepository $repository, InstituitionValidator $validator)
+    public function __construct(GroupRepository $repository, GroupValidator $validator)
     {
+
         $this->repository = $repository;
-        $this->validator  = $validator;
+        $this->validator = $validator;
+        
     }
 
     public function store(array $data)
@@ -27,16 +28,18 @@ class InstituitionService
         try
         {
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
-            $instituition = $this->repository->create($data);
+            $group = $this->repository->create($data);
+            
             return 
             [
                 'success' => true,
-                'messages' => "Instituição cadastrada",
-                'data' => $instituition,
+                'messages' => "Grupo cadastrado",
+                'data' => $group,
             ];
+            
         }
         catch(Exception $e)
-        {
+        {   
             switch(get_class($e))
             {
                 case QueryException::class      : return ['success' => false, 'messages' => $e->getMessage()];
@@ -46,21 +49,25 @@ class InstituitionService
             }
         }
     }
-    public function update($data, $id)
+
+    public function userStore($group_id, array $data)
     {
         try
         {
-            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
-            $instituition = $this->repository->update($data, $id);
+            $group = $this->repository->find($group_id);
+            $user_id = $data['user_id'];
+            $group->users()->attach($user_id);
             return 
             [
                 'success' => true,
-                'messages' => "Instituição atualizada",
-                'data' => $instituition,
+                'messages' => "User relacionado",
+                'data' => $group,
             ];
+            
         }
         catch(Exception $e)
-        {
+        {   
+            
             switch(get_class($e))
             {
                 case QueryException::class      : return ['success' => false, 'messages' => $e->getMessage()];
@@ -70,14 +77,28 @@ class InstituitionService
             }
         }
     }
-    public function destroy()
-    {
-        if (request()->wantsJson()) {
 
-            return response()->json([
-                'message' => 'Instituition deleted.',
-                'deleted' => $deleted,
-            ]);
+    public function update($group_id, array $data) : array
+    {
+        try
+        {   $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
+            $group = $this->repository->update($data, $group_id);
+            return 
+            [
+                'success' => true,
+                'messages' => "Grupo Atualizado",
+                'data' => $group,
+            ];    
+        }
+        catch(Exception $e)
+        {   
+            switch(get_class($e))
+            {
+                case QueryException::class      : return ['success' => false, 'messages' => $e->getMessage()];
+                case ValidatorException::class  : return ['success' => false, 'messages' => $e->getMessageBag()];
+                case Exception::class           : return ['success' => false, 'messages' => $e->getMessage()];
+                default                         : return ['success' => false, 'messages' => $e->getMessage()];
+            }
         }
     }
 }

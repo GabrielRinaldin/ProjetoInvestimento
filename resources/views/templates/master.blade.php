@@ -11,8 +11,7 @@
 </head>
 
 <body>
-
-    @include('templates.menu-lateral')
+    @include('layouts.app')
     <section id="view-conteudo">
         @yield('conteudo-view')
     </section>
