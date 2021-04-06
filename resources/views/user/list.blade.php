@@ -26,7 +26,7 @@
             <td>{{$user->permission}}</td>
             <td>
             {!! Form::open(['route' => ['user.destroy', $user->id], 'method' => 'DELETE'])!!}
-            {!! Form::submit('Remover')!!}
+            <button type="submit">Excluir</button>   
             {!! Form::close()!!}
             <a href="{{route ('user.edit', $user->id)}}">Editar</a>
             </td>

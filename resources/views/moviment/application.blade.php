@@ -13,16 +13,22 @@
 
 {!! Form::open([ 'route' => 'moviment.application.store','method'=> 'post', 'class' => 'form-padrao']) !!}
 
-@include('templates.formulario.select', ['label' =>'Grupo' ,'select' => 'group_id', 'data' => $group_list ?? [],
-'attributes' => ['placeholder' => ' Grupo']])
 
-@include('templates.formulario.select', ['label' =>'Produto' ,'select' => 'product_id', 'data' => $product_list ?? [],
-'attributes' => ['placeholder' => 'Produto']])
+<span>Grupo</span>
+<select id="group_id" name="group_id">
+    @foreach($group_list as $groups)
+    <option value="{{$groups->id}}" id="{{$groups->id}}" name="{{$groups->id}}">{{$groups->name}}</option>
+    @endforeach
+</select>
+<span>Produto</span>
+<select id="product_id" name="product_id">
+    @foreach($product_list as $products)
+    <option value="{{$products->id}}" id="{{$products->id}}" name="{{$products->id}}">{{$products->name}}</option>
+    @endforeach
+</select>
 
-@include('templates.formulario.input', ['label' =>'Valor', 'input' => 'value', 'attributes' => ['placeholder' =>
-'Valor']])
-
-@include('templates.formulario.submit', ['input' => 'Cadastrar'])
+<input id="value" name="value" placeholder="Valor">
+<button type="submit">Investir</button>
 
 {!! Form::close() !!}
 

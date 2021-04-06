@@ -54,9 +54,8 @@ class MovimentsController extends Controller
     public function application()
     {
         $user = Auth::user();
-        $group_list   = $user->groups->pluck('name', 'id');
-        $product_list =  Product::all()->pluck('name' ,'id');
-        
+        $group_list   = $user->groups;
+        $product_list =  Product::all();
         return view('moviment.application', ['group_list' => $group_list, 'product_list' => $product_list,]);
     }
     
@@ -84,8 +83,8 @@ class MovimentsController extends Controller
     public function getback()
     {
         $user = Auth::user();
-        $group_list   = $user->groups->pluck('name', 'id');
-        $product_list =  Product::all()->pluck('name' ,'id');
+        $group_list   = $user->groups;
+        $product_list =  Product::all();
         
         return view('moviment.getback', ['group_list' => $group_list, 'product_list' => $product_list,]);
     }
