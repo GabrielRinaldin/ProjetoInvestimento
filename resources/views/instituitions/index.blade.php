@@ -1,23 +1,18 @@
 @extends ('templates.master')
 
-
 @section('conteudo-view')
 @if(session('success'))
 <h3>{{ session('success') ['messages'] }}</h3>
 @endif
 
 {!! Form::open([ 'route' => 'instituition.store','method'=> 'post', 'class' => 'form-padrao']) !!}
-@include('templates.formulario.input', ['input' => 'name', 'attributes' => ['placeholder' => 'Nome']])
-@include('templates.formulario.submit', ['input' => 'Cadastrar'])
-
+<input type="text" id="name" name="name" placeholder="Nome">
+<button type="submit">Cadastrar</button>
 {!! Form::close() !!}
 
-
 <table class="default-table">
-
     <thead>
         <tr>
-
             <td>ID</td>
             <td>Nome</td>
             <td>Ações</td>
@@ -32,7 +27,7 @@
             <td>{{$instituition->name}}</td>
             <td>
                 {!! Form::open(['route' => ['instituition.destroy', $instituition->id], 'method' => 'DELETE'])!!}
-                {!! Form::submit('Remover')!!}
+                <button type="submit">Deletar</button>
                 {!! Form::close()!!}
                 <a href="{{route ('instituition.show', $instituition->id) }}">Detalhes</a>
                 <a href="{{route ('instituition.edit', $instituition->id) }}">Editar</a>

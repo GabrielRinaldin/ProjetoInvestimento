@@ -1,18 +1,15 @@
 @extends('templates.master')
 
-
-
 @section('conteudo-view')
-
 
 {!! Form::open(['route' => ['instituition.product.store', $instituition->id], 'method' => 'post', 'class' =>
 'form-padrao']) !!}
 
-@include('templates.formulario.input',['label' => 'Nome do Produto', 'input' => 'name'])
-@include('templates.formulario.input',['label' => 'Descrição', 'input' => 'description'])
-@include('templates.formulario.input',['label' => 'Indexador', 'input' => 'index'])
-@include('templates.formulario.input',['label' => 'Taxa de Juros', 'input' => 'interest_rate'])
-@include('templates.formulario.submit',['input' => 'Cadastrar'])
+<input id="name" name="name" placeholder="Nome do Produto">
+<input id="description" name="description" placeholder="Descrição">
+<input id="index" name="index" placeholder="Indexador">
+<input id="interest_rate" name="interest_rate" placeholder="Taxa de Juros">
+<button type="submit">Salvar</button>
 
 {!! Form::close()!!}
 
@@ -36,7 +33,7 @@
             <td>
                 {!! Form::open(['route' => ['instituition.product.destroy', $instituition->id, $product->id], 'method'
                 => 'DELETE'])!!}
-                {!! Form::submit('Remover')!!}
+                <button type="submit">Remover</button>
                 {!! Form::close()!!}
             </td>
         </tr>

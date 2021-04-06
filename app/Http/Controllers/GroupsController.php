@@ -52,7 +52,6 @@ class GroupsController extends Controller
 
         $user_list = $this->userRepository->selectBoxList();
         $instituition_list = $this->instituitionRepository->selectBoxList();
-
         return view(
             'groups.index',
             compact('groups'),

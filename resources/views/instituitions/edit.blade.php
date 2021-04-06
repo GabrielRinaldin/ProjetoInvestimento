@@ -7,9 +7,8 @@
 @endif
 
 {!! Form::model($instituition, [ 'route' => ['instituition.update', $instituition->id],'method'=> 'put', 'class' => 'form-padrao']) !!}
-@include('templates.formulario.input', ['input' => 'name', 'attributes' => ['placeholder' => 'Nome']])
-@include('templates.formulario.submit', ['input' => 'Atualizar'])
-
+<input type="text" id="name" name="name" placeholder="Nome">
+<button type="submit">Atualizar</button>
 {!! Form::close() !!}
 
 @endsection

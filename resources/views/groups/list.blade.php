@@ -1,8 +1,6 @@
 <table class="default-table">
-
     <thead>
         <tr>
-
             <td>ID</td>
             <td>Grupo</td>
             <td>Amont Total</td>
@@ -23,7 +21,7 @@
             <td>{{$group->owner->name}}</td>
             <td>
                 {!! Form::open(['route' => ['group.destroy', $group->id], 'method' => 'DELETE'])!!}
-                {!! Form::submit('Remover')!!}
+                <button type="submit">Remover</button>
                 {!! Form::close()!!}
                 <a href="{{route('group.show', $group->id)}}">Detalhes</a>
                 <a href="{{route('group.edit', $group->id)}}">Editar</a>

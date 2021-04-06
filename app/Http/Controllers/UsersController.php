@@ -27,7 +27,6 @@ class UsersController extends Controller
     public function index()
     {
         $users = $this->repository->all();
-
         if (request()->wantsJson()) {
 
             return response()->json([
