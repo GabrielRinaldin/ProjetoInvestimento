@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Entities\User;
 use App\Entities\Instituition;
+use Faker\Generator as Faker;
+use Illuminate\Support\Facades\Hash;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,18 +16,18 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
-        // \App\Models\User::factory(10)->create();
+        $arrayUserType = ['client', 'admin'];
 
         User::create([
-        'cpf'           => '07313070977',
-        'name'          => 'Gabriel Machado',
-        'phone'         => '41996401985',
-        'birth'         => '1999-08-02',
-        'gender'        => 'M',
-        'email'         => 'gabriel@sistema.com.br',
-        'password'      => env('PASSWORD_HASH') ? bcrypt('123456') : '123456',
+            'cpf'           => mt_rand(00000000000, 99999999999),
+            'name'          => $faker->name,
+            'phone'         => mt_rand(00000000000, 99999999999),
+            'birth'         => $faker->date,
+            'email'         => $faker->email,
+            'user_type'     => $arrayUserType[rand(0,1)],
+            'password'      => Hash::make('123456789'),
 
         ]);
     }

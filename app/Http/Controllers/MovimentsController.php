@@ -55,7 +55,8 @@ class MovimentsController extends Controller
     {
         $user = Auth::user();
         $group_list   = $user->groups;
-        $product_list =  Product::all();
+        $product_list =  Product::all();//mudar para where
+        //Product::where('user_id', $user->id)
         return view('moviment.application', ['group_list' => $group_list, 'product_list' => $product_list,]);
     }
     

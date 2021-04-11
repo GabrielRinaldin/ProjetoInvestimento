@@ -3,13 +3,13 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', ['uses' => 'App\Http\Controllers\Controller@homepage']);
-Route::get('/cadastro', ['uses' => 'App\Http\Controllers\Controller@cadastrar']);
 
 
 /**
  * Routes to user auth
  * ==================================
  */    
+Route::group(['middleware' => ['auth']], function () {
 
 Route::get('/login', ['uses' => 'App\Http\Controllers\Controller@fazerlogin']);
 Route::post('/login', ['as' => 'user.login', 'uses' => 'App\Http\Controllers\DashboardController@auth']);
@@ -32,10 +32,7 @@ Route::resource('group', 'App\Http\Controllers\GroupsController');
 Route::resource('instituition.product', 'App\Http\Controllers\ProductsController');
 
 Route::post('group/{group_id}/user', ['as' => 'group.user.store', 'uses' => 'App\Http\Controllers\GroupsController@userStore' ]);
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
 
 Auth::routes();
 
