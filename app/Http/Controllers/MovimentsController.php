@@ -20,7 +20,7 @@ use Auth;
  * @package namespace App\Http\Controllers;
  */
 class MovimentsController extends Controller
-{   
+{
     /**
      * @var MovimentRepository
      */
@@ -40,9 +40,8 @@ class MovimentsController extends Controller
     public function __construct(MovimentRepository $repository, MovimentValidator $validator)
     {
         $this->repository = $repository;
-        $this->validator  = $validator;  
-
-    }         
+        $this->validator  = $validator;
+    }
 
     public function index()
     {
@@ -53,29 +52,29 @@ class MovimentsController extends Controller
 
     public function application()
     {
+
         $user = Auth::user();
         $group_list   = $user->groups;
-        $product_list =  Product::all();//mudar para where
-        //Product::where('user_id', $user->id)
+        $product_list =  Product::all(); //mudar para where
         return view('moviment.application', ['group_list' => $group_list, 'product_list' => $product_list,]);
     }
-    
+
     public function storeApplication(Request $request)
     {
-       
+
         $movimento = Moviment::create([
-        'user_id' => Auth::user()->id,  
-        'group_id' => $request->get('group_id'),
-        'product_id' => $request->get('product_id'),
-        'value' => $request->get('value'),
-        'type' => 1, 
+            'user_id' => Auth::user()->id,
+            'group_id' => $request->get('group_id'),
+            'product_id' => $request->get('product_id'),
+            'value' => $request->get('value'),
+            'type' => 1,
 
         ]);
 
         session()->flash('success', [
             'success' => true,
-            'messages' => "Sua aplicação de " . $movimento->value . " no produto " 
-            . $movimento->product->name . " foi realizado com sucesso!",
+            'messages' => "Sua aplicação de " . $movimento->value . " no produto "
+                . $movimento->product->name . " foi realizado com sucesso!",
         ]);
 
         return \redirect()->route('moviment.application');
@@ -83,29 +82,30 @@ class MovimentsController extends Controller
 
     public function getback()
     {
+
         $user = Auth::user();
         $group_list   = $user->groups;
         $product_list =  Product::all();
-        
+
         return view('moviment.getback', ['group_list' => $group_list, 'product_list' => $product_list,]);
     }
-    
+
     public function storeGetBack(Request $request)
     {
-       
+
         $movimento = Moviment::create([
-        'user_id' => Auth::user()->id,  
-        'group_id' => $request->get('group_id'),
-        'product_id' => $request->get('product_id'),
-        'value' => $request->get('value'),
-        'type' => 2, 
+            'user_id' => Auth::user()->id,
+            'group_id' => $request->get('group_id'),
+            'product_id' => $request->get('product_id'),
+            'value' => $request->get('value'),
+            'type' => 2,
 
         ]);
 
         session()->flash('success', [
             'success' => true,
-            'messages' => "Sua resgate de " . $movimento->value . " no produto " 
-            . $movimento->product->name . " foi realizado com sucesso!",
+            'messages' => "Sua resgate de " . $movimento->value . " no produto "
+                . $movimento->product->name . " foi realizado com sucesso!",
         ]);
 
         return \redirect()->route('moviment.application');

@@ -25,8 +25,10 @@ class Group extends Model implements Transformable
     protected $fillable = ['name', 'user_id', 'instituition_id'];
     
     public function getTotalValueAttribute()
-    {   
-        return $this->moviments->sum('value');
+    {  
+        $inflows = $this->moviments()->applications()->sum('value');
+        $outflows = $this->moviments()->outflows()->sum('value');
+        return $inflows - $outflows;
     }
     
     public $timestamps = true;

@@ -63,14 +63,18 @@
                                 <tr>
                                     <td>{{$instituition->id}}</td>
                                     <td>{{$instituition->name}}</td>
-                                    <td><a class="btn btn-info" href="{{route ('instituition.show', $instituition->id) }}">Detalhes</a> </td>
-                                    <td><a class="btn btn-success" href="{{route ('instituition.product.index', $instituition->id) }}">Produtos</a>
+                                    <td><a class="btn btn-info"
+                                            href="{{route ('instituition.show', $instituition->id) }}">Detalhes</a>
                                     </td>
-                                    <td><a class="btn btn-warning" href="{{route ('instituition.edit', $instituition->id) }}">Editar</a></td>
+                                    <td><a class="btn btn-success"
+                                            href="{{route ('instituition.product.index', $instituition->id) }}">Produtos</a>
+                                    </td>
+                                    <td><a class="btn btn-warning"
+                                            href="{{route ('instituition.edit', $instituition->id) }}">Editar</a></td>
                                     <td>
                                         {!! Form::open(['route' => ['instituition.destroy', $instituition->id], 'method'
                                         => 'DELETE'])!!}
-                                        <button class="btn btn-danger" type="submit">Deletar</button>
+                                        <button class="btn btn-danger" type="submit">Excluir</button>
                                         {!! Form::close()!!}
                                     </td>
                                 </tr>

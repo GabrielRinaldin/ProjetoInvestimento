@@ -23,7 +23,6 @@
             <td>{{$product->name}}</td>
             <td>{{$product->instituition->name}}</td>
             <td>{{$product->valueFromUser(Auth::user())}}</td>
-
         </tr>
         @endforeach
     </tbody>
