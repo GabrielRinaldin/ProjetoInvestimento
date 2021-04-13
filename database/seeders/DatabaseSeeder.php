@@ -20,15 +20,18 @@ class DatabaseSeeder extends Seeder
     {
         $arrayUserType = ['client', 'admin'];
 
-        User::create([
-            'cpf'           => mt_rand(00000000000, 99999999999),
-            'name'          => $faker->name,
-            'phone'         => mt_rand(00000000000, 99999999999),
-            'birth'         => $faker->date,
-            'email'         => $faker->email,
-            'user_type'     => $arrayUserType[rand(0,1)],
-            'password'      => Hash::make('123456789'),
+        for ($i = 0; $i < 50; $i++) {
 
-        ]);
+            User::create([
+                'cpf'           => mt_rand(00000000000, 99999999999),
+                'name'          => $faker->name,
+                'phone'         => mt_rand(00000000000, 99999999999),
+                'birth'         => $faker->date,
+                'email'         => $faker->email,
+                'user_type'     => $arrayUserType[rand(0, 1)],
+                'password'      => Hash::make('123456789'),
+
+            ]);
+        }
     }
 };

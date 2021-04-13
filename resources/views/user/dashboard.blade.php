@@ -9,5 +9,4 @@
 
 @section('conteudo-view')
 
-Bem vindo
 @endsection

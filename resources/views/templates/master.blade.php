@@ -18,4 +18,6 @@
     @yield('js-view')
 
 
+</body>
+
 </html>
