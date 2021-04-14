@@ -27,83 +27,87 @@
 </head>
 
 <body>
-    {{-- <div id="app"> --}}
-    <nav class="navbar navbar-expand-md navbar-light bg-white  " style=" display: block;">
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm " style=" display: block;">
 
-        <div class="nav " id="nav-tab" role="tablist">
-            {{-- <a class="navbar-brand" href="{{ url('/dashboard') }}">
-            <img style="width: 40px; " src="https://upload.wikimedia.org/wikipedia/commons/1/1e/RPC-JP_Logo.png">
-            {{ config('app.name', 'Laravel') }}
-            </a> --}}
-            @if(Auth::user() !== null)
-            <div class="navbar" style="position: absolute; left: 10%">
-                <a class="nav-item nav-link active" style="color:#696969" id="nav-home-tab"
-                    href="{{ route('user.dashboard') }}" role="tab" aria-controls="nav-home"
-                    aria-selected="true">Inicio</a>
-                @if(Auth::user()->user_type == 'admin')
-                <a class="nav-item nav-link" style="color:#696969" id="nav-profile-tab" href="{{ route('user.index') }}"
-                    role="tab" aria-controls="nav-profile" aria-selected="false">Usúarios</a>
-                @endif()
-                <a class="nav-item nav-link" style="color:#696969" id="nav-contact-tab"
-                    href="{{ route('instituition.index') }}" role="tab" aria-controls="nav-contact"
-                    aria-selected="false">Instituições</a>
-                <a class="nav-item nav-link" style="color:#696969" id="nav-contact-tab"
-                    href="{{ route('group.index') }}" role="tab" aria-controls="nav-contact"
-                    aria-selected="false">Grupos</a>
-                <a class="nav-item nav-link" style="color:#696969" id="nav-contact-tab"
-                    href="{{ route('moviment.application') }}" role="tab" aria-controls="nav-contact"
-                    aria-selected="false">Investir</a>
-                <a class="nav-item nav-link" style="color:#696969" id="nav-contact-tab"
-                    href="{{ route('moviment.getback') }}" role="tab" aria-controls="nav-contact"
-                    aria-selected="false">Resgatar</a>
-                <a class="nav-item nav-link" style="color:#696969" id="nav-contact-tab"
-                    href="{{ route('moviment.index') }}" role="tab" aria-controls="nav-contact"
-                    aria-selected="false">Aplicações</a>
-                <a class="nav-item nav-link" style="color:#696969" id="nav-contact-tab"
-                    href="{{ route('moviment.all') }}" role="tab" aria-controls="nav-contact"
-                    aria-selected="false">Extrato</a>
-                @endif
-            </div>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
-            <ul class="navbar-nav ml-auto " style="position: absolute; left: 90%; gap: 10px;">
-                @guest
-                <a href="{{ route('login') }}" style="border-radius:50px; padding-left: 10px" type="button"
-                    class="btn btn-primary ">Entrar</a>
-                @if (Route::has('register'))
-                <a href="{{ route('register') }}" style="border-radius:50px;" type="button"
-                    class="btn btn-outline-primary">Resgistre-se</a>
-                @endif
-                @else
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }}
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                            {{ __('Sair') }}
+            <div class="nav nav-tabs" id="nav-tab" role="tablist" style="position: relative;">
+                <a class="navbar-brand" style="position: relative; left: 1.5%" href="{{ url('/dashboard') }}">
+                    <img style="width: 40px; "
+                        src="https://upload.wikimedia.org/wikipedia/commons/1/1e/RPC-JP_Logo.png">
+                </a>
+                @if(Auth::user() !== null)
+                <div class="navbar" style="position: absolute; left: 5%">
+                    <a class="nav-item nav-link active" style="color:#696969" id="nav-home-tab"
+                        href="{{ route('user.dashboard') }}" role="tab" aria-controls="nav-home"
+                        aria-selected="true">Inicio</a>
+                    @if(Auth::user()->user_type == 'admin')
+                    <a class="nav-item nav-link" style="color:#696969" id="nav-profile-tab"
+                        href="{{ route('user.index') }}" role="tab" aria-controls="nav-profile"
+                        aria-selected="false">Usúarios</a>
+                    @endif()
+                    <a class="nav-item nav-link" style="color:#696969" id="nav-contact-tab"
+                        href="{{ route('instituition.index') }}" role="tab" aria-controls="nav-contact"
+                        aria-selected="false">Instituições</a>
+                    <a class="nav-item nav-link" style="color:#696969" id="nav-contact-tab"
+                        href="{{ route('group.index') }}" role="tab" aria-controls="nav-contact"
+                        aria-selected="false">Grupos</a>
+                    <a class="nav-item nav-link" style="color:#696969" id="nav-contact-tab"
+                        href="{{ route('moviment.application') }}" role="tab" aria-controls="nav-contact"
+                        aria-selected="false">Investir</a>
+                    <a class="nav-item nav-link" style="color:#696969" id="nav-contact-tab"
+                        href="{{ route('moviment.getback') }}" role="tab" aria-controls="nav-contact"
+                        aria-selected="false">Resgatar</a>
+                    <a class="nav-item nav-link" style="color:#696969" id="nav-contact-tab"
+                        href="{{ route('moviment.index') }}" role="tab" aria-controls="nav-contact"
+                        aria-selected="false">Aplicações</a>
+                    <a class="nav-item nav-link" style="color:#696969" id="nav-contact-tab"
+                        href="{{ route('moviment.all') }}" role="tab" aria-controls="nav-contact"
+                        aria-selected="false">Extrato</a>
+                    @endif
+                </div>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+                <ul class="navbar-nav ml-auto" style="position: absolute; left: 90%">
+                    @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }}</a>
+                    </li>
+                    @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Registrar') }}</a>
+                    </li>
+                    @endif
+                    @else
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
                         </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                {{ __('Sair') }}
+                            </a>
 
-                @endguest
-            </ul>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </nav>
-    {{-- </div> --}}
+                    @endguest
+                </ul>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+    </div>
 
     {{-- @if(Auth::user() !== null)
         <nav id="principal">

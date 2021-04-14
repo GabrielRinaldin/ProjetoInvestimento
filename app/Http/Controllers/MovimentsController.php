@@ -108,7 +108,7 @@ class MovimentsController extends Controller
                 . $movimento->product->name . " foi realizado com sucesso!",
         ]);
 
-        return \redirect()->route('moviment.application');
+        return \redirect()->route('moviment.getback');
     }
 
     public function all()

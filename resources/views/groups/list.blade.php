@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center">
     <div class="col-8">
-        <div class="card">
+        <div class="card card-info">
             <div class="card-header">
                 <h3 class="card-title">Listando um total de {{$group_list->count()}} Grupos</h3>
             </div>
