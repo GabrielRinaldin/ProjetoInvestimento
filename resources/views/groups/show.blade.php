@@ -42,7 +42,7 @@
             </div>
             {!! Form::close() !!}
         </div>
-        @include('user.list', ['user_list' => $group->users])
+        @include('user.list', ['user_list' => $group->users->sortBy("name")])
 
     </div>
 </div>

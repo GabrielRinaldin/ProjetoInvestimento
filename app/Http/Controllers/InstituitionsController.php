@@ -34,7 +34,7 @@ class InstituitionsController extends Controller
     {
         
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $instituitions = $this->repository->all();
+        $instituitions = $this->repository->all()->sortBy("name");
 
         if (request()->wantsJson()) {
 

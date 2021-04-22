@@ -41,7 +41,7 @@ class GroupsController extends Controller
     public function index()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $groups = $this->repository->all();
+        $groups = $this->repository->all()->sortBy("name");
 
         if (request()->wantsJson()) {
 
@@ -50,8 +50,8 @@ class GroupsController extends Controller
             ]);
         }
 
-        $user_list = $this->userRepository->selectBoxList();
-        $instituition_list = $this->instituitionRepository->selectBoxList();
+        $user_list = $this->userRepository->selectBoxList()->sortBy("name");
+        $instituition_list = $this->instituitionRepository->selectBoxList()->sortBy("name");
         return view(
             'groups.index',
             compact('groups'),
@@ -96,7 +96,7 @@ class GroupsController extends Controller
     public function show($id)
     {   
         $group = $this->repository->find($id);
-        $user_list = $this->userRepository->selectBoxList();
+        $user_list = $this->userRepository->selectBoxList()->orderBy("name");
 
         return view(
             'groups.show',
@@ -108,8 +108,8 @@ class GroupsController extends Controller
     public function edit($id)
     {
         $group = Group::find($id);
-        $user_list = $this->userRepository->selectBoxList();
-        $instituition_list = $this->instituitionRepository->selectBoxList();
+        $user_list = $this->userRepository->selectBoxList()->sortBy("name");
+        $instituition_list = $this->instituitionRepository->selectBoxList()->sortBy("name");
 
         return view(
             'groups.edit',
